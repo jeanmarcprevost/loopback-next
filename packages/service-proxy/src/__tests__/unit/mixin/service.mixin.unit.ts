@@ -3,7 +3,7 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {Application, Component, Provider, BindingScope} from '@loopback/core';
+import {Application, Component, Provider} from '@loopback/core';
 import {expect} from '@loopback/testlab';
 import {Class, ServiceMixin} from '../../../';
 
@@ -78,7 +78,7 @@ describe('ServiceMixin', () => {
     const boundServices = myApp.find('services.*').map(b => b.key);
     expect(boundServices).to.containEql('services.GeocoderService');
     const binding = myApp.getBinding('services.GeocoderService');
-    expect(binding.scope).to.equal(BindingScope.TRANSIENT);
+    expect(binding.scope).to.be.undefined();
     const serviceInstance1 = await myApp.get('services.GeocoderService');
     expect(serviceInstance1).to.be.instanceOf(DummyGeocoder);
     const serviceInstance2 = await myApp.get('services.GeocoderService');
